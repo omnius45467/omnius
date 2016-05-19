@@ -10,4 +10,5 @@
     void initalizeMPU();
     void testMPU();
     void initializeSD();
+    void initializePing();
 #endif //OMNIUS_INITALIZE_H

@@ -8,7 +8,9 @@ void setup() {
     initalizeServos();
     initalizePWM();
     initalizeMPU();
+    initializePing();
     initializeSD();
+
 }
 
 void loop(){

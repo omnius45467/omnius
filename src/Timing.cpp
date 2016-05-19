@@ -50,10 +50,10 @@ int logData(){
 }
 void Time(){
 //    Serial.print("Cycle Time: ");
-
-    Serial.print(logData());
     lastCount = count;
     count++;
+    Serial.print(logData());
+
 //    Serial.println(Cycle(count, lastCount));
 
 }
