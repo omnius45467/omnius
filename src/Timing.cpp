@@ -22,23 +22,13 @@ int lastCount;
 template <typename T>
 
 inline T const &Cycle(T const &a, T const &b){
-    lastCount = count;
-    count++;
+
     return a < b ? b : a;
 }
 
-void logData(){
+int logData(){
     // make a string for assembling the data to log:
-    String dataString = "";
-
-    // read three sensors and append to the string:
-    for (int analogPin = 0; analogPin < 3; analogPin++) {
-        int sensor = analogRead(analogPin);
-        dataString += String(sensor);
-        if (analogPin < 2) {
-            dataString += ",";
-        }
-    }
+    int dataString = Cycle(count, lastCount);
 
     // open the file. note that only one file can be open at a time,
     // so you have to close this one before opening another.
@@ -46,10 +36,12 @@ void logData(){
 
     // if the file is available, write to it:
     if (dataFile) {
+        dataFile.println("Cycle: ");
         dataFile.println(dataString);
         dataFile.close();
         // print to the serial port too:
         Serial.println(dataString);
+
     }
         // if the file isn't open, pop up an error:
     else {
@@ -57,7 +49,11 @@ void logData(){
     }
 }
 void Time(){
-    logData();
-    Serial.println(Cycle(count, lastCount));
+//    Serial.print("Cycle Time: ");
+
+    Serial.print(logData());
+    lastCount = count;
+    count++;
+//    Serial.println(Cycle(count, lastCount));
 
 }
