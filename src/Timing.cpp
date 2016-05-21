@@ -49,7 +49,7 @@ int logData() {
         Serial.println("error opening datalog.txt");
     }
 }
-<<<<<<< HEAD
+
 
 void Time() {
     lastCount = count;
@@ -63,14 +63,5 @@ void Time() {
     Serial.print(month());
     Serial.print(year());
     Serial.println();
-=======
-void Time(){
-//    Serial.print("Cycle Time: ");
-    lastCount = count;
-    count++;
-    Serial.print(logData());
-
-//    Serial.println(Cycle(count, lastCount));
->>>>>>> e2611c9c3a22ce3f789f9dfd8c4aaf1d4adc06ec
 
 }
