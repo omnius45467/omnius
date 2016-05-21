@@ -108,4 +108,9 @@ void initializeSD(){
     }
     Serial.println("card initialized.");
 }
+void initializePing(){
 
+    pinMode(6, OUTPUT);
+    pinMode(7, INPUT);
+    Serial.print("Initializing ping sensor");
+}

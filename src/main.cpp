@@ -5,11 +5,20 @@
 void setup() {
     Serial.begin(9600);
     Serial.println("setup function");
+<<<<<<< HEAD
 //    initalizeServos();
 //    initalizePWM();
 //    initalizeMPU();
 //    initializeSD();
     Serial.end();
+=======
+    initalizeServos();
+    initalizePWM();
+    initalizeMPU();
+    initializePing();
+    initializeSD();
+
+>>>>>>> e2611c9c3a22ce3f789f9dfd8c4aaf1d4adc06ec
 }
 
 void loop(){
