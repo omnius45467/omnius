@@ -4,6 +4,7 @@
 #include "Arduino.h"
 #include "SPI.h"
 #include "SD.h"
+#include "Time.h"
 
 int count = 0;
 int lastCount;
@@ -19,14 +20,14 @@ int lastCount;
 //// Sparkfun SD shield: pin 8
 //const int chipSelect = 4;
 
-template <typename T>
+template<typename T>
 
-inline T const &Cycle(T const &a, T const &b){
+inline T const &Cycle(T const &a, T const &b) {
 
     return a < b ? b : a;
 }
 
-int logData(){
+int logData() {
     // make a string for assembling the data to log:
     int dataString = Cycle(count, lastCount);
 
@@ -36,7 +37,7 @@ int logData(){
 
     // if the file is available, write to it:
     if (dataFile) {
-        dataFile.println("Cycle: ");
+//        dataFile.println("Cycle: " + dataString);
         dataFile.println(dataString);
         dataFile.close();
         // print to the serial port too:
@@ -48,12 +49,18 @@ int logData(){
         Serial.println("error opening datalog.txt");
     }
 }
-void Time(){
-//    Serial.print("Cycle Time: ");
 
-    Serial.print(logData());
+void Time() {
     lastCount = count;
-    count++;
-//    Serial.println(Cycle(count, lastCount));
+    ++count;
+    // digital clock display of the time
+    Serial.print("Cycle: ");
+    Serial.print(hour());
+    Serial.print(minute());
+    Serial.print(second());
+    Serial.print(day());
+    Serial.print(month());
+    Serial.print(year());
+    Serial.println();
 
 }

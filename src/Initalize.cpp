@@ -30,7 +30,7 @@ SdFile root;
 // Arduino Ethernet shield: pin 4
 // Adafruit SD shields and modules: pin 10
 // Sparkfun SD shield: pin 8
-const int chipSelect = 4;
+const int chipSelect = 10;
 
 int val, val_x, val_y, negative_val;
 int prevVal;
@@ -79,10 +79,9 @@ void testMPU() {
         HeadServoBase.write(val);
         pwm.setPWM(6, 0, servoCenter());
         pwm.setPWM(7, 0, servoCenter());
-        pwm.setPWM(8, 0, val);
-        pwm.setPWM(9, 0, val);
+        pwm.setPWM(8, 0, servoCenter());
+        pwm.setPWM(9, 0, servoCenter());
     }
-
 
     delay(9);
 }
@@ -95,7 +94,6 @@ void initalizeMPU(){
     Serial.println(mpu.testConnection() ? "Connected" : "Connection failed");
     delay(1);
     testMPU();
-
 
 }
 void initializeSD(){

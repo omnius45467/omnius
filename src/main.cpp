@@ -5,15 +5,21 @@
 void setup() {
     Serial.begin(9600);
     Serial.println("setup function");
-    initalizeServos();
-    initalizePWM();
-    initalizeMPU();
-    initializeSD();
+//    initalizeServos();
+//    initalizePWM();
+//    initalizeMPU();
+//    initializeSD();
+    Serial.end();
 }
 
 void loop(){
-    testMPU();
+    Serial.begin(9600);
+//    testMPU();
     Time();
+    Serial.end();
+}
+void dispatch(){
+    /* This is what I will use to call functions that are accessible to run*/
 }
 
 

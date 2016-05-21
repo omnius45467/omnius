@@ -50,4 +50,4 @@ add_custom_target(
 # To enable code auto-completion, please specify path
 # to main source file (*.c, *.cpp) and uncomment line below
 #
- add_executable(omnius src/main.cpp src/Initalize.cpp src/Initalize.h src/Timing.cpp src/Timing.h)
+ add_executable(omnius src/main.cpp src/Initalize.cpp src/Initalize.h src/Timing.cpp src/Timing.h src/Ankle.cpp src/Ankle.h)
