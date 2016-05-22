@@ -4,7 +4,8 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/Initalize.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Ankle.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Timing.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Initalize.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Timing.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeListsPrivate.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />

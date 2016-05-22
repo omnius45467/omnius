@@ -129,6 +129,21 @@ void testMPU() {
     delay(9);
 }
 
+void testStand() {
+
+        pwm.setPWM(6, 0, servoCenter());
+        pwm.setPWM(7, 0, servoCenter());
+        pwm.setPWM(8, 0, servoCenter());
+        pwm.setPWM(9, 0, servoCenter());
+        pwm.setPWM(10, 0, servoCenter());
+        pwm.setPWM(11, 0, servoCenter());
+        pwm.setPWM(12, 0, servoCenter());
+        pwm.setPWM(13, 0, servoCenter());
+        pwm.setPWM(14, 0, servoCenter());
+        pwm.setPWM(15, 0, servoCenter());
+    }
+
+
 void initalizeMPU(){
 
     Wire.begin();
@@ -222,13 +237,14 @@ void initalizeOLED(){
     // Since the buffer is intialized with an Adafruit splashscreen
     // internally, this will display the splashscreen.
     display.display();
-    delay(2000);
+//    delay(2000);
 
     // Clear the buffer.
     display.clearDisplay();
 }
 void headSweep(){
         HeadServoBase.write(90);
+    delay(100);
     for(int i = 0; i < 180; i++){
         HeadServoBase.write(i);
         delay(50);
@@ -238,6 +254,7 @@ void headSweep(){
         HeadServoBase.write(i);
         delay(50);
     }
+
     HeadServoBase.write(90);
     delay(150);
 }
