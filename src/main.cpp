@@ -4,6 +4,9 @@
 #include "PciListener.h"
 #include "SoftTimer.h"
 
+
+int firstTime = 1;
+
 void callBack1(Task *me) {
     testStand();
 }
@@ -12,9 +15,12 @@ void callBack2(Task *me) {
 
     headSweep();
 }
+
 void callBack3(Task *me) {
 
     testOLED();
+//    headSweep();
+
 
 }
 
@@ -25,6 +31,7 @@ Task t3(1000, callBack3);
 
 
 void setup() {
+
     Serial.begin(9600);
     initalizeServos();
     initalizePWM();
@@ -32,14 +39,11 @@ void setup() {
 //    initializeSD();
     initalizeOLED();
 
-
-
     SoftTimer.add(&t1);
 
 //    SoftTimer.add(&t2);
 
     SoftTimer.add(&t3);
-
 
 }
 

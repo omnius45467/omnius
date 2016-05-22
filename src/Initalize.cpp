@@ -244,7 +244,7 @@ void initalizeOLED(){
 }
 void headSweep(){
         HeadServoBase.write(90);
-    delay(100);
+//    delay(100);
     for(int i = 0; i < 180; i++){
         HeadServoBase.write(i);
         delay(50);
@@ -256,6 +256,6 @@ void headSweep(){
     }
 
     HeadServoBase.write(90);
-    delay(150);
+//    delay(150);
 }
 
