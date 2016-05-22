@@ -185,7 +185,7 @@ void testOLED() {
         display.display();
         delay(1);
     }
-    delay(250);
+    delay(25);
 
     display.clearDisplay();
     for (int16_t i=0; i<display.width(); i+=4) {
@@ -198,7 +198,7 @@ void testOLED() {
         display.display();
         delay(1);
     }
-    delay(250);
+    delay(25);
 
     display.clearDisplay();
     for (int16_t i=display.width()-1; i>=0; i-=4) {
@@ -211,7 +211,7 @@ void testOLED() {
         display.display();
         delay(1);
     }
-    delay(250);
+    delay(25);
 
     display.clearDisplay();
     for (int16_t i=0; i<display.height(); i+=4) {
@@ -224,7 +224,7 @@ void testOLED() {
         display.display();
         delay(1);
     }
-    delay(250);
+    delay(25);
 }
 
 void initalizeOLED(){
@@ -247,12 +247,12 @@ void headSweep(){
 //    delay(100);
     for(int i = 0; i < 180; i++){
         HeadServoBase.write(i);
-        delay(50);
+        delay(5);
     }
-    delay(50);
+    delay(5);
     for(int i = 180; i > 0; i--){
         HeadServoBase.write(i);
-        delay(50);
+        delay(5);
     }
 
     HeadServoBase.write(90);
