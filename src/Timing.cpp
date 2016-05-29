@@ -26,30 +26,30 @@ inline T const &Cycle(T const &a, T const &b) {
 
     return a < b ? b : a;
 }
+//
+//int logData() {
+//    // make a string for assembling the data to log:
+//    int dataString = Cycle(count, lastCount);
+//
+//    // open the file. note that only one file can be open at a time,
+//    // so you have to close this one before opening another.
+//    File dataFile = SD.open("datalog.txt", FILE_WRITE);
+//
+//    // if the file is available, write to it:
+//    if (dataFile) {
+////        dataFile.println("Cycle: " + dataString);
+//        dataFile.println(dataString);
+//        dataFile.close();
+//        // print to the serial port too:
+//        Serial.println(dataString);
+//
+//    }
+//        // if the file isn't open, pop up an error:
+//    else {
+//        Serial.println("error opening datalog.txt");
+//    }
+//}
 
-int logData() {
-    // make a string for assembling the data to log:
-    int dataString = Cycle(count, lastCount);
-
-    // open the file. note that only one file can be open at a time,
-    // so you have to close this one before opening another.
-    File dataFile = SD.open("datalog.txt", FILE_WRITE);
-
-    // if the file is available, write to it:
-    if (dataFile) {
-//        dataFile.println("Cycle: " + dataString);
-        dataFile.println(dataString);
-        dataFile.close();
-        // print to the serial port too:
-        Serial.println(dataString);
-
-    }
-        // if the file isn't open, pop up an error:
-    else {
-        Serial.println("error opening datalog.txt");
-    }
-}
-<<<<<<< HEAD
 
 void Time() {
     lastCount = count;
@@ -63,14 +63,5 @@ void Time() {
     Serial.print(month());
     Serial.print(year());
     Serial.println();
-=======
-void Time(){
-//    Serial.print("Cycle Time: ");
-    lastCount = count;
-    count++;
-    Serial.print(logData());
-
-//    Serial.println(Cycle(count, lastCount));
->>>>>>> e2611c9c3a22ce3f789f9dfd8c4aaf1d4adc06ec
 
 }

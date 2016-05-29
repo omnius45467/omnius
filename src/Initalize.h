@@ -11,4 +11,8 @@
     void testMPU();
     void initializeSD();
     void initializePing();
+    void initalizeOLED();
+    void testOLED();
+    void headSweep();
+    void testStand();
 #endif //OMNIUS_INITALIZE_H
