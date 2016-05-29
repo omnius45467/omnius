@@ -10,7 +10,7 @@
 //TimedAction stand = TimedAction(100,testStand);
 TimedAction sweep = TimedAction(50,headSweep);
 //TimedAction oled = TimedAction(50,testOLED);
-//TimedAction sensor = TimedAction(300, testMPU);
+//TimedAction sensor = TimedAction(50, testMPU);
 
 static struct pt pt1, pt2;
 
@@ -33,7 +33,7 @@ static int protothread2(struct pt *pt, int interval) {
         *  and if false the function exits after that. */
         PT_WAIT_UNTIL(pt, millis() - timestamp > interval );
         timestamp = millis(); // take a new timestamp
-        testStand();
+        testMPU();
     }
     PT_END(pt);
 }
@@ -42,13 +42,13 @@ static int protothread2(struct pt *pt, int interval) {
 void setup() {
 
     Serial.begin(9600);
-    initalizeServos();
+//    initalizeServos();
     initalizePWM();
-    initalizeMPU();
 //    initializeSD();
     initalizeOLED();
+    initalizeMPU();
     PT_INIT(&pt1);
-    PT_INIT(&pt2);
+//    PT_INIT(&pt2);
 }
 
 void loop(){
@@ -56,9 +56,9 @@ void loop(){
 //    sensor.check();
 //    stand.check();
 //    oled.check();
-    sweep.check();
-    protothread1(&pt1, 1000);
-    protothread2(&pt2, 1000);
+//    sweep.check();
+    protothread1(&pt1, 100);
+//    protothread2(&pt2, 1000);
 }
 
 

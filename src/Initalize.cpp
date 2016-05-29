@@ -69,7 +69,7 @@ SdFile root;
 // Sparkfun SD shield: pin 8
 const int chipSelect = 10;
 
-int val, val_x, val_y, negative_val;
+int val,valLeft, valRight;
 int prevVal;
 
 int16_t ax, ay, az;
@@ -111,22 +111,35 @@ void initalizePWM() {
 void testMPU() {
     mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
 
-    val = map(gx, -17000, 17000, 0, 180);
-    if(val){
-        HeadServoBase.write(val);
+    valLeft = map(gz, -17000, 17000, SERVOMIN, SERVOMAX);
+    valRight = map(gz, -17000, 17000, SERVOMAX, SERVOMIN);
+    if(valLeft && valRight){
+        if(valLeft == servoCenter()){
+            pwm.setPWM(8, 0, valLeft);
+        }else{
+            int correctionL = (valLeft - servoCenter());
+            pwm.setPWM(8, 0, correctionL);
+        }
+        if(valRight == servoCenter()) {
+            pwm.setPWM(8, 0, valRight);
+        }else{
+            int correctionR = (valRight - servoCenter());
+            pwm.setPWM(9, 0, correctionR);
+        }
+
         pwm.setPWM(6, 0, servoCenter());
         pwm.setPWM(7, 0, servoCenter());
-        pwm.setPWM(8, 0, servoCenter());
-        pwm.setPWM(9, 0, servoCenter());
         pwm.setPWM(10, 0, servoCenter());
         pwm.setPWM(11, 0, servoCenter());
         pwm.setPWM(12, 0, servoCenter());
         pwm.setPWM(13, 0, servoCenter());
         pwm.setPWM(14, 0, servoCenter());
         pwm.setPWM(15, 0, servoCenter());
+        Serial.println(valLeft);
+        Serial.println(valRight);
     }
 
-    delay(9);
+    delay(100);
 }
 
 void testStand() {
@@ -149,7 +162,7 @@ void initalizeMPU(){
     Wire.begin();
     Serial.println("Initialize MPU");
     mpu.initialize();
-    Serial.println(mpu.testConnection() ? "Connected" : "Connection failed");
+    Serial.println(mpu.testConnection() ? "MPU Connected" : "MPU Connection failed");
     delay(1);
     testMPU();
 
