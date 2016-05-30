@@ -49,25 +49,10 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-
-
-// our servo # counter
 uint8_t servonum = 6;
 
-Servo HeadServoBase;
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 MPU6050 mpu;
-
-// set up variables using the SD utility library functions:
-Sd2Card card;
-SdVolume volume;
-SdFile root;
-
-// change this to match your SD shield or module;
-// Arduino Ethernet shield: pin 4
-// Adafruit SD shields and modules: pin 10
-// Sparkfun SD shield: pin 8
-const int chipSelect = 10;
 
 int val,valLeft, valRight;
 int prevVal;
@@ -75,86 +60,21 @@ int prevVal;
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
 
-int servoCenter() {
-    int min = SERVOMIN;
-    int max = SERVOMAX;
-    int center;
-    center = (min + max) / 2;
-    return center;
-}
-
-void initalizeServos() {
-    uint8_t pin = 6;
-    pinMode(pin, OUTPUT);
-
-    HeadServoBase.attach(pin);
-//    HeadServoBase.write(90);
-    Serial.println("Head Servo Initialized");
-}
-
 void initalizePWM() {
 
 
     pwm.begin();
     pwm.setPWMFreq(60);
-//    Serial.println("Testing Servo");
-//    while ( servonum != 15) {
-//        pwm.setPWM(servonum, 0, servoCenter());
-//        delay(10);
-//        servonum++;
-//        if (servonum > 15) servonum = 6;
-//    }
+    Serial.println("Testing Servo");
+    while ( servonum != 15) {
+        pwm.setPWM(servonum, 0, 150);
+        delay(10);
+        servonum++;
+        if (servonum > 15) servonum = 6;
+    }
     Serial.println("PWM Initialized");
 
 }
-
-void testMPU() {
-    mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-
-    valLeft = map(gz, -17000, 17000, SERVOMIN, SERVOMAX);
-    valRight = map(gz, -17000, 17000, SERVOMAX, SERVOMIN);
-    if(valLeft && valRight){
-        if(valLeft == servoCenter()){
-            pwm.setPWM(8, 0, valLeft);
-        }else{
-            int correctionL = (valLeft - servoCenter());
-            pwm.setPWM(8, 0, correctionL);
-        }
-        if(valRight == servoCenter()) {
-            pwm.setPWM(8, 0, valRight);
-        }else{
-            int correctionR = (valRight - servoCenter());
-            pwm.setPWM(9, 0, correctionR);
-        }
-
-        pwm.setPWM(6, 0, servoCenter());
-        pwm.setPWM(7, 0, servoCenter());
-        pwm.setPWM(10, 0, servoCenter());
-        pwm.setPWM(11, 0, servoCenter());
-        pwm.setPWM(12, 0, servoCenter());
-        pwm.setPWM(13, 0, servoCenter());
-        pwm.setPWM(14, 0, servoCenter());
-        pwm.setPWM(15, 0, servoCenter());
-        Serial.println(valLeft);
-        Serial.println(valRight);
-    }
-
-    delay(100);
-}
-
-void testStand() {
-
-        pwm.setPWM(6, 0, servoCenter());
-        pwm.setPWM(7, 0, servoCenter());
-        pwm.setPWM(8, 0, servoCenter());
-        pwm.setPWM(9, 0, servoCenter());
-        pwm.setPWM(10, 0, servoCenter());
-        pwm.setPWM(11, 0, servoCenter());
-        pwm.setPWM(12, 0, servoCenter());
-        pwm.setPWM(13, 0, servoCenter());
-        pwm.setPWM(14, 0, servoCenter());
-        pwm.setPWM(15, 0, servoCenter());
-    }
 
 
 void initalizeMPU(){
@@ -164,28 +84,9 @@ void initalizeMPU(){
     mpu.initialize();
     Serial.println(mpu.testConnection() ? "MPU Connected" : "MPU Connection failed");
     delay(1);
-    testMPU();
+
 
 }
-void initializeSD(){
-
-    Serial.print("Initializing SD card...");
-
-    // see if the card is present and can be initialized:
-    if (!SD.begin(chipSelect)) {
-        Serial.println("Card failed, or not present");
-        // don't do anything more:
-        return;
-    }
-    Serial.println("card initialized.");
-}
-void initializePing(){
-//
-//    pinMode(6, OUTPUT);
-//    pinMode(7, INPUT);
-//    Serial.print("Initializing ping sensor");
-}
-
 
 void testOLED() {
     for (int16_t i=0; i<display.width(); i+=4) {
@@ -242,33 +143,104 @@ void testOLED() {
 
 void initalizeOLED(){
 
-    // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-    // init done
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 
-    // Show image buffer on the display hardware.
-    // Since the buffer is intialized with an Adafruit splashscreen
-    // internally, this will display the splashscreen.
     display.display();
-//    delay(2000);
 
-    // Clear the buffer.
     display.clearDisplay();
 }
-void headSweep(){
-        HeadServoBase.write(90);
-//    delay(100);
-    for(int i = 0; i < 180; i++){
-        HeadServoBase.write(i);
-        delay(5);
-    }
-    delay(5);
-    for(int i = 180; i > 0; i--){
-        HeadServoBase.write(i);
-        delay(5);
-    }
 
-    HeadServoBase.write(90);
-//    delay(150);
+int servoCenter(){
+    int min = SERVOMIN;
+    int max = SERVOMAX;
+    int center;
+    center = (min + max) / 2;
+//    Serial.println(center);
+    return center;
 }
 
+int fortyfive(){
+    int min = SERVOMIN;
+    int max = servoCenter();
+
+    int ff;
+
+    ff = (min + max) / 2;
+
+    return ff;
+}
+int onethirty(){
+    int min = servoCenter();
+    int max = SERVOMAX;
+
+    int ot;
+
+    ot = (min + max) / 2;
+
+    return ot;
+}
+
+void sway() {
+    int walkFrames[4][5] = {
+            {servoCenter(), servoCenter(), servoCenter(), servoCenter(), servoCenter()},
+            {fortyfive(), servoCenter(), servoCenter(), servoCenter(), fortyfive()},
+            {servoCenter(), servoCenter(), servoCenter(), servoCenter(), servoCenter()},
+            {onethirty(), servoCenter(), servoCenter(), servoCenter(), onethirty()},
+
+    };
+    for(int i = 6; i < 15; i++){
+        pwm.setPWM(i, 0, servoCenter());
+
+    }
+    delay(500);
+
+    for(int i = 6; i < 15; i++){
+
+        if(i == 6 || i == 7){
+            pwm.setPWM(i, 0, fortyfive());
+        }else if(i == 14 || i == 15){
+            pwm.setPWM(i, 0, fortyfive());
+        }else{
+            pwm.setPWM(i, 0, servoCenter());
+        }
+
+    }
+    delay(500);
+    for(int i = 6; i < 15; i++){
+        pwm.setPWM(i, 0, servoCenter());
+
+    }
+    delay(500);
+
+    for(int i = 6; i < 15; i++){
+
+        if(i == 6 || i == 7){
+            pwm.setPWM(i, 0, onethirty());
+        }else if(i == 14 || i == 15){
+            pwm.setPWM(i, 0, onethirty());
+        }else{
+            pwm.setPWM(i, 0, servoCenter());
+        }
+
+    }
+    delay(500);
+    for(int i = 6; i < 15; i++){
+        pwm.setPWM(i, 0, servoCenter());
+
+    }
+    delay(500);
+
+//    for(int i = 6; i < 8; i++) {
+//        for (int j = 0; j < 4; j++) {
+//            Serial.print("writing servo ");
+//
+//            Serial.print(walkFrames[0][j]);
+//            Serial.println();
+//            pwm.setPWM(6, 0, walkFrames[0][j]);
+//            pwm.setPWM(7, 0, walkFrames[1][j]);
+//            delay(100);
+//        }
+//    }
+
+}
+void
