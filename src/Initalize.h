@@ -4,15 +4,17 @@
 
 #ifndef OMNIUS_INITALIZE_H
 #define OMNIUS_INITALIZE_H
-    void initalizeServos();
-    void initalizePWM();
-    int servoCenter();
-    void initalizeMPU();
-    void testMPU();
-    void initializeSD();
-    void initializePing();
-    void initalizeOLED();
-    void testOLED();
-    void headSweep();
-    void testStand();
+
+void initalizePWM();
+
+void initalizeMPU();
+
+void initalizeOLED();
+
+void testOLED();
+
+void testStand();
+
+void sway();
+
 #endif //OMNIUS_INITALIZE_H
